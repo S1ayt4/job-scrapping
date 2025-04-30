@@ -1,7 +1,7 @@
-name: Scraping RemoteOK Jobs with automatic commit
+name: Scraping RemoteOK Jobs
 
 on:
-  workflow_dispatch:  # Pour lancer manuellement
+  workflow_dispatch:  # Permet de lancer manuellement
   schedule:
     - cron: '0 8 * * *'  # Tous les jours à 8h UTC
 
@@ -24,12 +24,12 @@ jobs:
 
     - name: Run scraper
       run: |
-        python scraping_csv.py
+        python scraping_csv_archive.py
 
-    - name: Commit jobs.csv file
+    - name: Commit scraped jobs
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
-        git add jobs.csv
+        git add scraped_jobs/
         git commit -m "📝 Update jobs.csv [auto]" || echo "Aucun changement à committer"
         git push
