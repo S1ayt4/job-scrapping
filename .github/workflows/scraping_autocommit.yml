@@ -1,4 +1,4 @@
-name: Scraping RemoteOK Jobs
+name: Scraping RemoteOK Jobs with automatic commit
 
 on:
   workflow_dispatch:  # Pour lancer manuellement
