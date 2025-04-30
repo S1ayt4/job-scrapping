@@ -1,0 +1,35 @@
+name: Scraping RemoteOK Jobs
+
+on:
+  workflow_dispatch:  # Pour lancer manuellement
+  schedule:
+    - cron: '0 8 * * *'  # Tous les jours à 8h UTC
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run scraper
+      run: |
+        python scraping.py
+
+    - name: Commit jobs.csv file
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add jobs.csv
+        git commit -m "📝 Update jobs.csv [auto]" || echo "Aucun changement à committer"
+        git push
