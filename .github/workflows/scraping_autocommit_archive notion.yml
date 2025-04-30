@@ -1,4 +1,4 @@
-name: Scraping RemoteOK Jobs with autocommit and archive
+name: Scraping RemoteOK Jobs with autocommit, archive, Notion
 
 on:
   workflow_dispatch:  # Permet de lancer manuellement
